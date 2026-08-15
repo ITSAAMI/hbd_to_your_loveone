@@ -1,37 +1,42 @@
 <!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Happy Birthday, My Love</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;600&display=swap"
-        rel="stylesheet">
+    <title>Happy Birthday, My Queen</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+    <div id="particles-js"></div>
+    <div class="glow-orb"></div>
     <div class="scene">
-        <div class="stars"></div>
-        <div class="container">
-            <h1 class="title">Happy Birthday, My Love</h1>
-            <p class="subtitle" id="typed"></p>
-
-            <div class="card" id="card">
-                <p class="message" id="message">You are my sunshine, my heart, my everything. Wishing you the happiest
-                    birthday filled with love.</p>
-                <div class="controls">
-                    <button id="revealBtn" class="btn">Open Surprise</button>
-                    <button id="playBtn" class="btn ghost">Play Song</button>
-                </div>
+        <div class="container" id="tilt-container">
+            <h1 class="title">Happy Birthday, My Queen</h1>
+            <div class="typewriter-container">
+                <p class="subtitle" id="typed"></p><span class="cursor">|</span>
             </div>
 
-            <div class="hearts" id="hearts"></div>
-        </div>
-    </div>
-
-    <audio id="song" src="song.mp3" preload="auto"></audio>
+            <div class="glass-card" id="card">
+                <div class="card-content">
+                    <p class="message" id="message">
+                        You are the light of my life, the rhythm to my heartbeat. Wishing you a day as breathtaking and beautiful as you are.
+                    </p>
+                    <div class="controls">
+                        <button id="revealBtn" class="premium-btn">
+                            <span class="btn-text">Open Surprise</span>
+                            <span class="btn-glow"></span>
+                        </button>
+                        <button id="playBtn" class="premium-btn ghost">
+                            <span class="btn-text">Play Song</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="hearts-container"></div>
+    <!-- Audio element -->
+    <audio id="song" src="assets/Tere Sang Yaara - [ SlowedReverb] lyrics - Atif Aslam   Indian Lofi Songs  Textaudio.mp3" preload="auto" loop></audio>
     <script src="script.js"></script>
 </body>
-
 </html>
