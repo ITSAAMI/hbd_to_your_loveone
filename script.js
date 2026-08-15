@@ -15,13 +15,13 @@ function typeMessage(text, el, cb) {
     const t = setInterval(() => {
         el.textContent += text[i++] || '';
         if (i > text.length) { clearInterval(t); if (cb) cb(); }
-    }, 38);
+    }, 45);
 }
 
 function nextMessage() {
     typeMessage(messages[msgIndex], typedEl, () => {
         msgIndex = (msgIndex + 1) % messages.length;
-        setTimeout(nextMessage, 1600);
+        setTimeout(nextMessage, 2000);
     });
 }
 
@@ -33,24 +33,40 @@ function spawnHeart() {
     const h = document.createElement('div');
     h.className = 'heart';
     const size = 12 + Math.random() * 28;
-    h.style.width = h.style.height = size + 'px';
-    h.style.left = (Math.random() * 100) + '%';
-    h.style.bottom = '-10px';
-    h.style.opacity = (0.6 + Math.random() * 0.4).toString();
-    h.style.transform = 'rotate(45deg)';
-    const dur = 6 + Math.random() * 8;
+    h.style.width = size + 'px';
+    h.style.height = size + 'px';
+    h.style.left = (Math.random() * 100) + 'vw';
+    
+    // randomize animation duration
+    const dur = 4 + Math.random() * 6;
     h.style.animationDuration = dur + 's';
+    
     heartsContainer.appendChild(h);
-    setTimeout(() => h.remove(), (dur + 0.5) * 1000);
+    setTimeout(() => h.remove(), dur * 1000);
 }
 
-setInterval(spawnHeart, 600);
+setInterval(spawnHeart, 400);
 
-// Reveal button: show a larger message animation
+// Reveal button: show a larger message animation and confetti
 const revealBtn = document.getElementById('revealBtn');
 const card = document.getElementById('card');
+
+function spawnConfetti() {
+    for (let i = 0; i < 60; i++) {
+        const c = document.createElement('div');
+        c.className = 'confetti';
+        c.style.left = Math.random() * 100 + 'vw';
+        c.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
+        c.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        c.style.animationDelay = Math.random() * 0.5 + 's';
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 5000);
+    }
+}
+
 revealBtn.addEventListener('click', () => {
     card.classList.add('popped');
+    spawnConfetti();
     setTimeout(() => card.classList.remove('popped'), 2500);
 });
 
@@ -70,7 +86,6 @@ playBtn.addEventListener('click', () => {
 // small visual punch when card pops
 const style = document.createElement('style');
 style.textContent = `
-	.card.popped{transform:scale(1.03);box-shadow:0 30px 60px rgba(255,107,129,0.18);transition:transform .18s}
+	.card.popped{transform:scale(1.05) translateY(-15px);box-shadow:0 40px 80px rgba(255,8,68,0.3);transition:transform .3s cubic-bezier(0.175, 0.885, 0.32, 1.275)}
 `;
 document.head.appendChild(style);
-
