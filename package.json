@@ -1,0 +1,32 @@
+{
+  "name": "hbd_queen",
+  "version": "1.0.0",
+  "description": "A premium, interactive web application that allows you to design a personalized, memorable digital birthday journey for someone special.",
+  "main": "script.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ITSAAMI/hbd_to_your_loveone.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/ITSAAMI/hbd_to_your_loveone/issues"
+  },
+  "homepage": "https://github.com/ITSAAMI/hbd_to_your_loveone#readme",
+  "dependencies": {
+    "gsap": "^3.15.0",
+    "localforage": "^1.10.0",
+    "three": "^0.185.1",
+    "uuid": "^14.0.1"
+  },
+  "devDependencies": {
+    "vite": "^8.2.1"
+  }
+}
