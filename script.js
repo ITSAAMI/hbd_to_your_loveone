@@ -144,6 +144,10 @@ function initCreationFlow() {
                 <button class="remove-photo" id="removePhotoBtn">×</button>
             </div>
         `;
+        
+        // Hide upload zone when photo is added
+        uploadZone.style.display = 'none';
+
         document.getElementById('removePhotoBtn').addEventListener('click', (e) => {
             e.stopPropagation();
             URL.revokeObjectURL(birthdaySession.photoObjectURL);
@@ -151,6 +155,9 @@ function initCreationFlow() {
             birthdaySession.photoFile = null;
             photoPreviews.innerHTML = '';
             fileInput.value = '';
+            
+            // Show upload zone again when photo is removed
+            uploadZone.style.display = 'block';
         });
     }
 
