@@ -1,44 +1,218 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Happy Birthday, My Queen</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Wish Creator</title>
+    <meta name="description" content="Create a premium, personalized birthday wish experience.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="particles-js"></div>
-    <div class="glow-orb"></div>
-    <div class="scene">
-        <div class="container" id="tilt-container">
-            <h1 class="title">Happy Birthday, My Queen</h1>
-            <div class="typewriter-container">
-                <p class="subtitle" id="typed"></p><span class="cursor">|</span>
-            </div>
 
-            <div class="glass-card" id="card">
-                <div class="card-content">
-                    <p class="message" id="message">
-                        You are the light of my life, the rhythm to my heartbeat. Wishing you a day as breathtaking and beautiful as you are.
-                    </p>
-                    <div class="controls">
-                        <button id="revealBtn" class="premium-btn">
-                            <span class="btn-text">Open Surprise</span>
-                            <span class="btn-glow"></span>
-                        </button>
-                        <button id="playBtn" class="premium-btn ghost">
-                            <span class="btn-text">Play Song</span>
-                        </button>
-                    </div>
+    <!-- SCREEN 0: LANDING -->
+    <section id="landing-screen" class="screen active">
+        <div class="landing-content">
+            <h1 class="hero-title">Create a Birthday Surprise</h1>
+            <p class="hero-subtitle">Design a memorable digital journey for someone special.</p>
+            <button id="startCreationBtn" class="premium-btn hero-btn">
+                <span class="btn-text">Start Creating ✨</span>
+                <span class="btn-glow"></span>
+            </button>
+        </div>
+        
+        <!-- Ad container -->
+        <div class="ad-container" id="adSlotLanding">
+            <p class="ad-label">Advertisement</p>
+        </div>
+    </section>
+
+    <!-- SCREEN 1: CREATION FLOW -->
+    <section id="creation-screen" class="screen">
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <div class="creation-container">
+            <!-- Step 1: Who -->
+            <div class="step-card active" id="step-1">
+                <h2>Who are we celebrating?</h2>
+                <div class="form-group">
+                    <label for="recipientName">Their Name</label>
+                    <input type="text" id="recipientName" placeholder="e.g., Sarah" maxlength="30" autocomplete="off">
+                    <p class="error-msg" id="nameError">Please enter a name</p>
+                </div>
+                <div class="form-group">
+                    <label for="recipientNickname">Nickname (Optional)</label>
+                    <input type="text" id="recipientNickname" placeholder="e.g., Bear" maxlength="30" autocomplete="off">
+                </div>
+                <div class="step-nav">
+                    <button class="nav-btn next-step" data-target="2">Next Step</button>
                 </div>
             </div>
 
-            <div id="hearts-container"></div>
-        </div>
-    </div>
+            <!-- Step 2: Photo -->
+            <div class="step-card" id="step-2">
+                <h2>Add Their Photo</h2>
+                <div class="form-group">
+                    <div class="upload-zone" id="uploadZone">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                        <p class="upload-text">Drag & drop a photo here</p>
+                        <p class="upload-subtext">or click to browse &middot; Max 5MB</p>
+                        <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                    </div>
+                    <div class="photo-previews" id="photoPreviews"></div>
+                </div>
+                <div class="step-nav split">
+                    <button class="nav-btn ghost prev-step" data-target="1">Back</button>
+                    <button class="nav-btn next-step" data-target="3">Next Step</button>
+                </div>
+            </div>
 
-    <audio id="song" src="assets/song.mp3" preload="auto" loop></audio>
+            <!-- Step 3: Details -->
+            <div class="step-card" id="step-3">
+                <h2>A few more details</h2>
+                <div class="form-group">
+                    <label for="birthdayDate">Birthday Date (Optional)</label>
+                    <input type="date" id="birthdayDate">
+                </div>
+                <div class="form-group">
+                    <label for="creatorName">Your Name (Optional)</label>
+                    <input type="text" id="creatorName" placeholder="Who is this from?" maxlength="30">
+                </div>
+                <div class="step-nav split">
+                    <button class="nav-btn ghost prev-step" data-target="2">Back</button>
+                    <button class="nav-btn next-step" data-target="4">Next Step</button>
+                </div>
+            </div>
+
+            <!-- Step 4: Message -->
+            <div class="step-card" id="step-4">
+                <h2>Write something special</h2>
+                <div class="form-group">
+                    <label for="messageInput">Personalized Message</label>
+                    <textarea id="messageInput" rows="4" placeholder="Wishing you the happiest of birthdays..." maxlength="500"></textarea>
+                    <div class="char-count"><span id="msgCount">0</span>/500</div>
+                </div>
+                <div class="step-nav split">
+                    <button class="nav-btn ghost prev-step" data-target="3">Back</button>
+                    <button class="nav-btn next-step" data-target="5">Next Step</button>
+                </div>
+            </div>
+
+            <!-- Step 5: Secret -->
+            <div class="step-card" id="step-5">
+                <h2>Add a secret code?</h2>
+                <p class="helper-text">Make them type a special word or code to unlock the surprise.</p>
+                <div class="form-group">
+                    <label for="secretPhrase">Secret Code (Optional)</label>
+                    <input type="text" id="secretPhrase" placeholder="e.g., Inside joke or nickname" maxlength="20" autocomplete="off">
+                </div>
+                <div class="step-nav split">
+                    <button class="nav-btn ghost prev-step" data-target="4">Back</button>
+                    <button class="nav-btn next-step" data-target="6">Review</button>
+                </div>
+            </div>
+
+            <!-- Step 6: Preview -->
+            <div class="step-card" id="step-6">
+                <h2>Review Surprise</h2>
+                <div class="preview-box">
+                    <p><strong>For:</strong> <span id="previewName"></span></p>
+                    <p><strong>From:</strong> <span id="previewCreator"></span></p>
+                    <p><strong>Secret:</strong> <span id="previewSecret"></span></p>
+                    <div class="preview-photo-wrap">
+                        <img id="previewPhoto" src="" alt="" style="display:none; max-width: 100px; border-radius:8px;">
+                    </div>
+                </div>
+                <div class="step-nav split">
+                    <button class="nav-btn ghost prev-step" data-target="5">Back</button>
+                    <button id="finalCreateBtn" class="premium-btn">Create Surprise</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SCREEN 2: EXPERIENCE -->
+    <section id="experience-screen" class="screen">
+        <div id="particles-js"></div>
+        <div class="glow-orb"></div>
+        <div id="hearts-container"></div>
+        <audio id="song" src="assets/song.mp3" preload="auto" loop></audio>
+        
+        <div class="scene-container">
+            <!-- Scene 0: Secret Lock -->
+            <div class="exp-scene" id="scene-secret">
+                <div class="glass-card">
+                    <h2 class="title scene-title">Locked Surprise</h2>
+                    <p class="subtitle">Enter the secret code to unlock.</p>
+                    <input type="password" id="unlockInput" class="secret-input" placeholder="Enter secret...">
+                    <p id="unlockError" class="error-msg">Incorrect, try again!</p>
+                    <button id="unlockBtn" class="premium-btn ghost" style="margin-top: 1rem;">Unlock</button>
+                </div>
+            </div>
+
+            <!-- Scene 1: Intro -->
+            <div class="exp-scene active" id="scene-intro">
+                <p class="subtitle fade-text" style="margin-bottom: 2rem;">Someone created something special for you...</p>
+                <button id="openSurpriseBtn" class="premium-btn">
+                    <span class="btn-text">Open Your Surprise</span>
+                    <span class="btn-glow"></span>
+                </button>
+            </div>
+
+            <!-- Scene 2: Name Reveal -->
+            <div class="exp-scene" id="scene-name">
+                <h1 class="title huge-title" id="expTitle">Happy Birthday!</h1>
+                <button class="scene-next-btn premium-btn ghost" data-next="scene-photo">Continue</button>
+            </div>
+
+            <!-- Scene 3: Photo Reveal -->
+            <div class="exp-scene" id="scene-photo">
+                <div class="photo-reveal-frame">
+                    <img id="expPhoto" src="" alt="Birthday Photo">
+                </div>
+                <button class="scene-next-btn premium-btn ghost" data-next="scene-message" style="margin-top: 2rem;">Next</button>
+            </div>
+
+            <!-- Scene 4: Message Reveal -->
+            <div class="exp-scene" id="scene-message">
+                <div class="glass-card">
+                    <p class="message-text" id="expMessage"></p>
+                </div>
+                <button class="scene-next-btn premium-btn ghost" data-next="scene-balloon" style="margin-top: 2rem; opacity: 0; pointer-events: none;" id="msgNextBtn">Continue</button>
+            </div>
+
+            <!-- Scene 5: Balloon Interaction -->
+            <div class="exp-scene" id="scene-balloon">
+                <p class="subtitle" style="margin-bottom: 2rem;">There's still one surprise left...</p>
+                <div class="balloon-container" id="interactiveBalloon">
+                    <div class="balloon">
+                        <span class="balloon-string"></span>
+                    </div>
+                </div>
+                <p class="helper-text" style="margin-top: 1rem;">Tap the balloon 🎈</p>
+            </div>
+
+            <!-- Scene 6: Final Celebration -->
+            <div class="exp-scene" id="scene-final">
+                <h1 class="title">Wishing You the Best!</h1>
+                <div class="glass-card" style="margin-bottom: 2rem;">
+                    <p class="subtitle" id="finalMessageExcerpt"></p>
+                </div>
+                <p class="subtitle" id="creatorCredit" style="font-size: 0.9rem; opacity: 0.7; margin-bottom: 2rem;"></p>
+                <div class="controls">
+                    <button id="restartBtn" class="premium-btn ghost">Create Another Surprise</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <script src="script.js"></script>
 </body>
 </html>
