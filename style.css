@@ -120,6 +120,7 @@ body, html {
     max-width: 600px;
     position: relative;
     margin-top: 2rem;
+    perspective: 1000px;
 }
 
 /* Progress bar */
@@ -151,13 +152,15 @@ body, html {
     padding: 2.5rem;
     border: 1px solid var(--glass-border);
     box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-    animation: slideUpFade 0.4s ease forwards;
+    animation: flipIn3D 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    transform-style: preserve-3d;
+    will-change: transform;
 }
 .step-card.active { display: block; }
 
-@keyframes slideUpFade {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+@keyframes flipIn3D {
+    from { opacity: 0; transform: rotateX(-15deg) translateY(30px) scale(0.95); }
+    to { opacity: 1; transform: rotateX(0deg) translateY(0) scale(1); }
 }
 
 .step-card h2 {
@@ -195,6 +198,40 @@ body, html {
 .helper-text { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem; }
 .char-count { text-align: right; font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem; }
 .error-msg { color: #ff6b6b; font-size: 0.85rem; margin-top: 0.5rem; display: none; font-weight: 500; }
+
+/* Suggestions */
+.suggestions-container {
+    margin-top: 1.5rem;
+}
+.suggestions-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.suggestions-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+.suggestion-pill {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--text-main);
+    padding: 0.6rem 1rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+.suggestion-pill:hover {
+    background: rgba(255, 42, 95, 0.2);
+    border-color: rgba(255, 42, 95, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(255, 42, 95, 0.2);
+}
 
 /* Upload Zone */
 .upload-zone {
@@ -283,6 +320,8 @@ body, html {
     padding: 2.5rem 2rem;
     box-shadow: 0 30px 60px rgba(0,0,0,0.4);
     width: 100%;
+    transform-style: preserve-3d;
+    will-change: transform;
 }
 .message-text {
     font-size: clamp(1.1rem, 3vw, 1.5rem); line-height: 1.8;
